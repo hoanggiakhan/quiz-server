@@ -1,5 +1,5 @@
-# Sử dụng hình ảnh JDK để xây dựng ứng dụng
-FROM openjdk:17-jdk-slim AS build
+# Sử dụng hình ảnh Maven để xây dựng ứng dụng
+FROM maven:3.8.5-openjdk-17-slim AS build
 
 # Thiết lập thư mục làm việc
 WORKDIR /app
@@ -12,7 +12,7 @@ RUN mvn dependency:go-offline
 COPY . .
 RUN mvn package -DskipTests
 
-# Sử dụng hình ảnh JRE để chạy ứng dụng
+# Sử dụng hình ảnh JRE nhẹ hơn để chạy ứng dụng
 FROM openjdk:17-jdk-slim
 
 # Thiết lập thư mục làm việc
